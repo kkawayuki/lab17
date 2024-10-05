@@ -1,13 +1,6 @@
+// COMSC-210 | lab 17 | Kent Kawashima
 #include <iostream>
 using namespace std;
-
-/*
-Refactor this code. The code currently is not modular at all; important code that could be reused is not contained in functions.
-
-Rewrite the code such that it leverages functions to perform these linked list operations: adding a node to the front; adding a node to the tail; deleting a node; inserting a node; and deleting the entire linked list.
-
-Don't forget that the coding conventions for this course have been updated and now require using function prototypes.
-*/
 
 // constant global value
 const int SIZE = 7; // corresponds to the desired size
@@ -22,38 +15,44 @@ struct Node
 // function prototypes
 void output(Node *);            // print all
 void createLinkedList(Node *&); // initialize linked list
-
-void addNodeFront(Node *);
+void addNodeFront(Node *&);
 void addNodeTail(Node *, Node *);
 void deleteNode(Node *, Node *);
 void insertNode(Node *, Node *);
 void deleteLinkedList(Node *, Node *);
 
+/************************************************
+ * Function: Main
+ ************************************************/
 int main()
 {
     Node *head = nullptr;
     Node *current = head;
-    int count = 0;
 
-    createLinkedList(head);
+    createLinkedList(head); //create intial linked list
 
     cout << "starting list: \n";
-    output(head);
+    output(head); //output linked list
 
-    cout << "adding node to front: \n";
-    addNodeFront(head, current);
+    addNodeFront(head);
     addNodeTail(head,current);
-
-    deleteNode(head, current);
+    deleteNode(head, current); //delete node of user specificaiton 
     insertNode(head, current);
-
-    deleteLinkedList(head, current);
+    deleteLinkedList(head, current); //delete linked list to avoid memory leak
 
     return 0;
 }
 
-// functions --------------------------
 
+/************************************************
+ * Function: Takes in the pointer to the head of 
+ * the array and iterates through it, printing 
+ * the float value at each node, formatted. 
+ *
+ * Parameters: *hd, the pointer to the head of the
+ * linked list, (starting point of iteration)
+ * Return: NONE
+ ************************************************/
 void output(Node *hd)
 {
     if (!hd)
@@ -71,6 +70,16 @@ void output(Node *hd)
     cout << endl;
 }
 
+/************************************************
+ * Function: Takes in the pointer to the head of 
+ * the array by reference, so it's alterable
+ * (alternatively could have returntype be node)
+ * then intializes each Node of the linked list. 
+ *
+ * Parameters: *&head, the pointer to the head of the
+ * linked list, (starting point of Node creation)
+ * Return: NONE
+ ************************************************/
 void createLinkedList(Node *&head)
 {
     // create a linked list of size SIZE with random numbers 0-99
@@ -93,9 +102,17 @@ void createLinkedList(Node *&head)
             head = newVal;
         }
     }
-} // initialize linked list
+} 
 
-void addNodeFront(Node *head)
+/************************************************
+ * Function: Adds a node to the forefront of the
+ * linked list, value specified by user input.
+ *
+ * Parameters: *&head, the pointer to the head of the
+ * linked list, (starting point of Node creation)
+ * Return: NONE
+ ************************************************/
+void addNodeFront(Node *&head)
 {
     Node *prev = head;
     int val;
@@ -105,19 +122,31 @@ void addNodeFront(Node *head)
 
     Node *newnode = new Node;
     newnode->value = val; // assigns user-inputted value
-    newnode->next = current;
-    prev->next = newnode;
+
+    newnode->next = head; 
+    head = newnode;
+
     output(head); // show changes
 }
 
+/************************************************
+ * Function: Iterates to the end of the linked
+ * list, then adds a value specified by user input
+ *
+ * Parameters: 
+ * *head, the pointer to the head of the
+ * linked list, (starting point of Node creation)
+ * *current, a secondary pointer used to iterate
+ * through the linked list to the end (where the
+ * user-inputted value is to be saved.)
+ * Return: NONE
+ ************************************************/
 void addNodeTail(Node *head, Node *current)
 {
-    Node *prev = head;
     int val;
     int count = 1;
 
     current = head;
-    prev = head;
 
     cout << "value to add to back: ";
     cin >> val;
@@ -136,6 +165,18 @@ void addNodeTail(Node *head, Node *current)
     output(head); // output changes
 }
 
+/************************************************
+ * Function: Iterates a specified member of the 
+ * linked list, removes it, and 
+ *
+ * Parameters: 
+ * *head, the pointer to the head of the
+ * linked list, (starting point of Node creation)
+ * *current, a secondary pointer used to iterate
+ * through the linked list to the end (where the
+ * user-inputted value is to be saved.)
+ * Return: NONE
+ ************************************************/
 void deleteNode(Node *head, Node *current)
 {
     // deleting a node

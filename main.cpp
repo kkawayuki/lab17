@@ -21,7 +21,7 @@ struct Node
 
 // function prototypes
 void output(Node *);           // print all
-void createLinkedList(Node *); // initialize linked list
+void createLinkedList(Node *&); // initialize linked list
 
 void addNodeFront(Node *);
 void addNodeTail(Node *);
@@ -36,11 +36,13 @@ int main()
     int count = 0;
 
     createLinkedList(head);
+
     cout << "starting list: \n";
     output(head);
 
     deleteNode(head, current);
     insertNode(head, current);
+
     deleteLinkedList(head, current);
 
     return 0;
@@ -65,7 +67,7 @@ void output(Node *hd)
     cout << endl;
 }
 
-void createLinkedList(Node *head)
+void createLinkedList(Node *&head)
 {
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++)

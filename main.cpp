@@ -29,25 +29,24 @@ int main()
     Node *head = nullptr;
     Node *current = head;
 
-    createLinkedList(head); //create intial linked list
+    createLinkedList(head); // create intial linked list
 
     cout << "starting list: \n";
-    output(head); //output linked list
+    output(head); // output linked list
 
     addNodeFront(head);
-    addNodeTail(head,current);
-    deleteNode(head, current); //delete node of user specificaiton 
+    addNodeTail(head, current);
+    deleteNode(head, current); // delete node of user specificaiton
     insertNode(head, current);
-    deleteLinkedList(head, current); //delete linked list to avoid memory leak
+    deleteLinkedList(head, current); // delete linked list to avoid memory leak
 
     return 0;
 }
 
-
 /************************************************
- * Function: Takes in the pointer to the head of 
- * the array and iterates through it, printing 
- * the float value at each node, formatted. 
+ * Function: Takes in the pointer to the head of
+ * the array and iterates through it, printing
+ * the float value at each node, formatted.
  *
  * Parameters: *hd, the pointer to the head of the
  * linked list, (starting point of iteration)
@@ -71,10 +70,10 @@ void output(Node *hd)
 }
 
 /************************************************
- * Function: Takes in the pointer to the head of 
+ * Function: Takes in the pointer to the head of
  * the array by reference, so it's alterable
  * (alternatively could have returntype be node)
- * then intializes each Node of the linked list. 
+ * then intializes each Node of the linked list.
  *
  * Parameters: *&head, the pointer to the head of the
  * linked list, (starting point of Node creation)
@@ -102,7 +101,7 @@ void createLinkedList(Node *&head)
             head = newVal;
         }
     }
-} 
+}
 
 /************************************************
  * Function: Adds a node to the forefront of the
@@ -114,7 +113,6 @@ void createLinkedList(Node *&head)
  ************************************************/
 void addNodeFront(Node *&head)
 {
-    Node *prev = head;
     int val;
 
     cout << "value to add to front: ";
@@ -123,7 +121,7 @@ void addNodeFront(Node *&head)
     Node *newnode = new Node;
     newnode->value = val; // assigns user-inputted value
 
-    newnode->next = head; 
+    newnode->next = head;
     head = newnode;
 
     output(head); // show changes
@@ -133,9 +131,9 @@ void addNodeFront(Node *&head)
  * Function: Iterates to the end of the linked
  * list, then adds a value specified by user input
  *
- * Parameters: 
+ * Parameters:
  * *head, the pointer to the head of the
- * linked list, (starting point of Node creation)
+ * linked list
  * *current, a secondary pointer used to iterate
  * through the linked list to the end (where the
  * user-inputted value is to be saved.)
@@ -151,7 +149,7 @@ void addNodeTail(Node *head, Node *current)
     cout << "value to add to back: ";
     cin >> val;
 
-    while(current->next != nullptr)
+    while (current->next != nullptr)
     {
         current = current->next;
     }
@@ -166,13 +164,15 @@ void addNodeTail(Node *head, Node *current)
 }
 
 /************************************************
- * Function: Iterates a specified member of the 
- * linked list, removes it, and 
+ * Function: Iterates a specified member of the
+ * linked list, removes it, and rejoins the
+ * related pointers to ensure continuity of the
+ * linked list
  *
- * Parameters: 
+ * Parameters:
  * *head, the pointer to the head of the
- * linked list, (starting point of Node creation)
- * *current, a secondary pointer used to iterate
+ * linked list
+ * *current, secondary pointer used to iterate
  * through the linked list to the end (where the
  * user-inputted value is to be saved.)
  * Return: NONE
@@ -208,6 +208,19 @@ void deleteNode(Node *head, Node *current)
     output(head);
 }
 
+/************************************************
+ * Function: Iterates to a user-specified member
+ * of the linked list, then adds a fixed value of
+ * 10000 there
+ *
+ * Parameters:
+ * *head, the pointer to the head of the
+ * linked list
+ * *current, a secondary pointer used to iterate
+ * through the linked list to the end (where the
+ * value is to be saved.)
+ * Return: NONE
+ ************************************************/
 void insertNode(Node *head, Node *current)
 {
     // insert a node
@@ -245,6 +258,21 @@ void insertNode(Node *head, Node *current)
     output(head);
 }
 
+/************************************************
+ * Function: Uses two pointers in conjunction to
+ * point to, delete, and reassign pointers, iterating
+ * through the linked list until it's entirety is
+ * deleted. Then sets the head pointer to nullptr,
+ * indicating that the linked list no longer
+ * exists.
+ *
+ * Parameters:
+ * *head, the pointer to the head of the
+ * linked list
+ * *current, a secondary pointer used to iterate
+ * through the linked list to the end.
+ * Return: NONE
+ ************************************************/
 void deleteLinkedList(Node *current, Node *head)
 {
     // deleting the linked list
@@ -256,5 +284,5 @@ void deleteLinkedList(Node *current, Node *head)
         current = head;
     }
     head = nullptr;
-    output(head); //validate list deletion
+    output(head); // validate list deletion
 }

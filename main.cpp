@@ -12,7 +12,7 @@ Don't forget that the coding conventions for this course have been updated and n
 // constant global value
 const int SIZE = 7; // corresponds to the desired size
 
-// struct 
+// struct
 struct Node
 {
     float value;
@@ -38,6 +38,7 @@ int main()
     createLinkedList(head);
     cout << "starting list: \n";
     output(head);
+
     deleteNode(head, current);
     insertNode(head, current);
     deleteLinkedList(head, current);
@@ -131,7 +132,7 @@ void insertNode(Node *head, Node *current)
 {
     // insert a node
     Node *prev = head;
-    int entry;
+    int entry, val;
     int count = 1;
 
     current = head;

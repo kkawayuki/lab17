@@ -20,11 +20,11 @@ struct Node
 };
 
 // function prototypes
-void output(Node *);           // print all
+void output(Node *);            // print all
 void createLinkedList(Node *&); // initialize linked list
 
-void addNodeFront(Node *);
-void addNodeTail(Node *);
+void addNodeFront(Node *, Node *);
+void addNodeTail(Node *, Node *);
 void deleteNode(Node *, Node *);
 void insertNode(Node *, Node *);
 void deleteLinkedList(Node *, Node *);
@@ -39,6 +39,9 @@ int main()
 
     cout << "starting list: \n";
     output(head);
+
+    cout << "adding node to front: \n";
+    addNodeFront(head, current);
 
     deleteNode(head, current);
     insertNode(head, current);
@@ -91,12 +94,60 @@ void createLinkedList(Node *&head)
     }
 } // initialize linked list
 
-void addNodeFront(Node *)
+void addNodeFront(Node *head, Node *current)
 {
+    Node *prev = head;
+    int val;
+
+    current = head;
+    prev = head;
+    current = current->next;
+
+    cout << "value to add to front: ";
+    cin >> val;
+
+    Node *newnode = new Node;
+    newnode->value = val; // inserts value 10000 by defauly
+    newnode->next = current;
+    prev->next = newnode;
+    output(head); // show changes
 }
 
-void addNodeTail(Node *)
+void addNodeTail(Node *head, Node *current)
 {
+    // insert a node
+    Node *prev = head;
+    int entry, val;
+    int count = 1;
+
+    current = head;
+    cout << "After which node to insert 10000? " << endl;
+
+    // has built-in print
+    while (current)
+    {
+        cout << "[" << count++ << "] " << current->value << endl;
+        current = current->next;
+    }
+    cout << "Choice --> ";
+    cin >> entry;
+
+    current = head;
+    prev = head;
+    for (int i = 0; i < (entry); i++)
+        if (i == 0)
+            current = current->next;
+        else
+        {
+            current = current->next;
+            prev = prev->next;
+        }
+    // at this point, insert a node between prev and current
+    Node *newnode = new Node;
+    newnode->value = 10000;
+    newnode->next = current;
+    prev->next = newnode;
+    output(head);
 }
 
 void deleteNode(Node *head, Node *current)
@@ -140,6 +191,7 @@ void insertNode(Node *head, Node *current)
     current = head;
     cout << "After which node to insert 10000? " << endl;
 
+    // has built-in print
     while (current)
     {
         cout << "[" << count++ << "] " << current->value << endl;

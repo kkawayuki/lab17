@@ -12,7 +12,7 @@ Don't forget that the coding conventions for this course have been updated and n
 // constant global value
 const int SIZE = 7; // corresponds to the desired size
 
-// struct
+// struct 
 struct Node
 {
     float value;
@@ -25,15 +25,47 @@ void createLinkedList(Node *); // initialize linked list
 
 void addNodeFront(Node *);
 void addNodeTail(Node *);
-void deleteNode(Node *);
-void insertNode(Node *);
-void deleteLinkedList(Node *);
+void deleteNode(Node *, Node *);
+void insertNode(Node *, Node *);
+void deleteLinkedList(Node *, Node *);
 
 int main()
 {
     Node *head = nullptr;
+    Node *current = head;
     int count = 0;
 
+    createLinkedList(head);
+    cout << "starting list: \n";
+    output(head);
+    deleteNode(head, current);
+    insertNode(head, current);
+    deleteLinkedList(head, current);
+
+    return 0;
+}
+
+// functions --------------------------
+
+void output(Node *hd)
+{
+    if (!hd)
+    {
+        cout << "Empty list.\n";
+        return;
+    }
+    int count = 1;
+    Node *current = hd;
+    while (current)
+    {
+        cout << "[" << count++ << "] " << current->value << endl;
+        current = current->next;
+    }
+    cout << endl;
+}
+
+void createLinkedList(Node *head)
+{
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++)
     {
@@ -54,10 +86,20 @@ int main()
             head = newVal;
         }
     }
-    output(head);
+} // initialize linked list
 
+void addNodeFront(Node *)
+{
+}
+
+void addNodeTail(Node *)
+{
+}
+
+void deleteNode(Node *head, Node *current)
+{
     // deleting a node
-    Node *current = head;
+
     cout << "Which node to delete? " << endl;
     output(head);
     int entry;
@@ -83,11 +125,18 @@ int main()
         current = nullptr;
     }
     output(head);
+}
 
+void insertNode(Node *head, Node *current)
+{
     // insert a node
+    Node *prev = head;
+    int entry;
+    int count = 1;
+
     current = head;
     cout << "After which node to insert 10000? " << endl;
-    count = 1;
+
     while (current)
     {
         cout << "[" << count++ << "] " << current->value << endl;
@@ -112,7 +161,10 @@ int main()
     newnode->next = current;
     prev->next = newnode;
     output(head);
+}
 
+void deleteLinkedList(Node *current, Node *head)
+{
     // deleting the linked list
     current = head;
     while (current)
@@ -123,50 +175,4 @@ int main()
     }
     head = nullptr;
     output(head);
-
-    return 0;
-}
-
-// functions --------------------------
-
-void output(Node *hd)
-{
-    if (!hd)
-    {
-        cout << "Empty list.\n";
-        return;
-    }
-    int count = 1;
-    Node *current = hd;
-    while (current)
-    {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
-    }
-    cout << endl;
-}
-
-void createLinkedList(Node *)
-{
-
-} // initialize linked list
-
-void addNodeFront(Node *)
-{
-}
-
-void addNodeTail(Node *)
-{
-}
-
-void deleteNode(Node *)
-{
-}
-
-void insertNode(Node *)
-{
-}
-
-void deleteLinkedList(Node *)
-{
 }
